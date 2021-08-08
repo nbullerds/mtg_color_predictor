@@ -48,7 +48,7 @@ class card_puller:
 
         return False
         
-    def build_card_list(self) -> None:
+    def build_card_list(self) -> List[Dict[str,Any]]:
         '''
         Builds card list starting at base_url. The function will paginate through
         until the end of the pages. Each page will be appended onto the list of
@@ -61,12 +61,14 @@ class card_puller:
         card_list = self.card_page
 
         # get_next_page is true when a page was gotten. False at end of pages.
+        index = 2
         while self.get_next_page():
-            print('in while')
+            print(f'Page: {index}', end='\r')
             card_list.extend(self.card_page)
+            index += 1
 
         self._card_list = card_list
-        return None
+        return card_list
 
 
     def get_pagination_pointers(self) -> Dict[str, str]:
